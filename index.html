@@ -83,7 +83,7 @@
       position: relative;
       display: inline-block;
       width: 300px;
-      margin: 20px;
+      margin: 20px auto; /* Ortala */
     }
 
     .locked-image img {
@@ -92,16 +92,17 @@
       border-radius: 20px;
       box-shadow: 0 0 20px #00ff00;
       filter: blur(8px);
-      opacity: 0.1; /* Çok karartıldı, hemen neredeyse görünmez */
+      opacity: 0.1; /* Çok karartıldı, neredeyse görünmez */
       transition: filter 0.5s ease, opacity 0.5s ease;
       display: block;
+      margin-bottom: 10px;
     }
 
     /* Kilit ve karartma katmanı */
     .lock-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.9); /* neredeyse tamamen siyah karartma */
+      background-color: rgba(0, 0, 0, 0.9);
       border-radius: 20px;
       display: flex;
       justify-content: center;
@@ -124,24 +125,36 @@
       user-select: none;
     }
 
-    /* Normal resimler */
-    #content img:not(.locked-image img) {
-      border: 5px solid #00ff00;
-      border-radius: 20px;
-      width: 300px;
-      box-shadow: 0 0 20px #00ff00;
-      margin: 20px;
+    /* Parlayan cam böceği yazısı */
+    .glow-text {
+      font-size: 36px;
+      font-weight: bold;
+      color: #00ff00;
+      text-align: center;
+      animation: glow 1.5s ease-in-out infinite alternate;
+      user-select: none;
+      margin-top: 10px;
     }
 
-    h1 {
-      font-size: 48px;
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 1; }
+    @keyframes glow {
+      0% {
+        text-shadow:
+          0 0 5px #00ff00,
+          0 0 10px #00ff00,
+          0 0 20px #00ff00,
+          0 0 40px #00ff00,
+          0 0 80px #00ff00;
+        color: #00ff00;
+      }
+      100% {
+        text-shadow:
+          0 0 2px #00ff00,
+          0 0 5px #00ff00,
+          0 0 10px #00ff00,
+          0 0 20px #00ff00,
+          0 0 40px #00ff00;
+        color: #aaffaa;
+      }
     }
 
     /* Köşelerde yazı */
@@ -200,8 +213,11 @@
     <div class="locked-image">
       <img src="resim.png.png" alt="MAYMUN İFŞA" />
       <div class="lock-overlay">🔒</div>
+      <div class="glow-text">maymun ifşası</div>
     </div>
 
+    <br /><br />
+  </div>
 
   <!-- Köşelerde H4CKED BY ARDA -->
   <div class="corner-text top-left">H4CKED BY ARDA</div>
@@ -233,13 +249,11 @@
 
     // Kısayolları engelle (Print Screen, Ctrl+S, Ctrl+C, F12 vb)
     document.addEventListener('keydown', function(e) {
-      // Print Screen engelle (sınırlı)
       if (e.key === 'PrintScreen') {
         alert('Print Screen engellendi!');
         e.preventDefault();
         return false;
       }
-      // Ctrl+S, Ctrl+C, Ctrl+P, F12 engelle
       if ((e.ctrlKey && ['s', 'c', 'p'].includes(e.key.toLowerCase())) || e.key === 'F12') {
         alert('Bu kısayol engellendi!');
         e.preventDefault();
@@ -249,6 +263,7 @@
   </script>
 </body>
 </html>
+
 
 
 
