@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -11,24 +12,42 @@
       text-align: center;
       margin-top: 50px;
     }
+
+    /* 🔐 Lock icon animasyonu */
+    .lock {
+      font-size: 80px;
+      animation: bounce 1s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
     input, button {
       padding: 10px;
       margin-top: 20px;
       font-size: 16px;
     }
+
     #content {
       display: none;
     }
+
     img {
       border: 5px solid #00ff00;
       border-radius: 20px;
       width: 300px;
       box-shadow: 0 0 20px #00ff00;
     }
+
     h1 {
       font-size: 48px;
       animation: blink 1s infinite;
     }
+
     @keyframes blink {
       0% { opacity: 1; }
       50% { opacity: 0.3; }
@@ -37,6 +56,8 @@
   </style>
 </head>
 <body>
+
+  <div class="lock">🔒</div> <!-- 👈 Kilit burada -->
 
   <h1>Şifre Gir</h1>
   <input type="password" id="passwordInput" placeholder="Şifre">
@@ -51,12 +72,14 @@
 
   <script>
     function checkPassword() {
-      const correctPassword = "10C"; // 🔑 Şifreni buradan değiştir!
+      const correctPassword = "10/C"; // 🔐 Şifre burada
       const input = document.getElementById("passwordInput").value;
       if (input === correctPassword) {
         document.getElementById("content").style.display = "block";
         document.getElementById("passwordInput").style.display = "none";
         document.querySelector("button").style.display = "none";
+        document.querySelector(".lock").style.display = "none";
+        document.querySelector("h1").style.display = "none";
       } else {
         alert("Yanlış şifre!");
       }
