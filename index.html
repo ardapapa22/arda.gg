@@ -24,7 +24,6 @@
       z-index: -2;
     }
 
-    /* loginBox arkasındaki video */
     #loginBoxVideo {
       position: absolute;
       top: 50%;
@@ -92,31 +91,22 @@
       border-radius: 20px;
       border: 5px solid #00ff00;
       filter: blur(8px);
-      opacity: 0.1;
-      transition: 0.5s ease;
+      opacity: 0.3;
+      transition: 0.6s ease;
       display: block;
     }
 
     .lock-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0,0,0,0.85);
       border-radius: 20px;
       font-size: 64px;
       color: #00ff00;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .unlocked .locked-image img {
-      filter: none;
-      opacity: 1;
-    }
-
-    .unlocked .lock-overlay {
-      opacity: 0;
-      pointer-events: none;
+      transition: 0.5s ease;
     }
 
     .glow-text {
@@ -149,23 +139,31 @@
     .top-right { top: 10px; right: 10px; }
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
+
+    /* Blur kaldırıldığında geçiş efektleri */
+    .unlocked #lockedImage img {
+      filter: none;
+      opacity: 1;
+    }
+
+    .unlocked #lockOverlay {
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Tüm ekran arka plan videosu -->
   <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Login kutusu arkası video -->
   <video autoplay muted loop id="loginBoxVideo">
     <source src="video2.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Şifre kutusu -->
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
@@ -174,21 +172,22 @@
     <button onclick="checkPassword()">Giriş</button>
   </div>
 
-  <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
-    <div class="locked-image">
+    <div class="locked-image" id="lockedImage">
       <img src="resim.png.png" alt="MAYMUN İFŞA" />
-      <div class="lock-overlay">🔒</div>
+      <div class="lock-overlay" id="lockOverlay">🔒</div>
       <div class="glow-text">maymun ifşası</div>
     </div>
   </div>
 
-  <!-- Köşe yazıları -->
   <div class="corner-text top-left">H4CKED BY ARDA</div>
   <div class="corner-text top-right">H4CKED BY ARDA</div>
   <div class="corner-text bottom-left">H4CKED BY ARDA</div>
   <div class="corner-text bottom-right">H4CKED BY ARDA</div>
+
+  <!-- Tıklama sesi -->
+  <audio id="unlockSound" src="click.mp3" preload="auto"></audio>
 
   <script>
     function checkPassword() {
@@ -198,7 +197,9 @@
         document.getElementById("content").style.display = "block";
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("loginBoxVideo").style.display = "none";
-        document.body.classList.add('unlocked');
+        document.body.classList.add("unlocked");
+        document.getElementById("lockedImage").classList.add("unlocked");
+        document.getElementById("unlockSound").play();
       } else {
         alert("Yanlış şifre!");
       }
