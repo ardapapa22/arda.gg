@@ -78,7 +78,46 @@
       min-height: 100vh;
     }
 
-    img {
+    /* Kilitli resim sarmalayıcı */
+    .locked-image {
+      position: relative;
+      display: inline-block;
+    }
+
+    .locked-image img {
+      filter: blur(8px);
+      opacity: 0.9;
+      transition: filter 0.5s ease, opacity 0.5s ease;
+      border: 5px solid #00ff00;
+      border-radius: 20px;
+      width: 300px;
+      box-shadow: 0 0 20px #00ff00;
+      margin: 20px;
+    }
+
+    .lock-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      color: #00ff00;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Şifre doğruysa kilit kalkar, resim netleşir */
+    .unlocked .locked-image img {
+      filter: none;
+      opacity: 1;
+    }
+
+    .unlocked .locked-image .lock-overlay {
+      display: none;
+    }
+
+    /* Normal resimler */
+    #content img:not(.locked-image img) {
       border: 5px solid #00ff00;
       border-radius: 20px;
       width: 300px;
@@ -149,8 +188,17 @@
   <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
-    <img src="resim.png.png" alt="MAYMUN İFŞA" />
+
+    <div class="locked-image">
+      <img src="resim.png.png" alt="MAYMUN İFŞA" />
+      <div class="lock-overlay">🔒</div>
+    </div>
+
     <br /><br />
+
+    <img src="resim2.png" alt="İkinci Foto" />
+    <br /><br />
+    <img src="resim3.png" alt="Üçüncü Foto" />
   </div>
 
   <!-- Köşelerde H4CKED BY ARDA -->
@@ -167,6 +215,9 @@
       if (input === correct) {
         document.getElementById("content").style.display = "block";
         document.getElementById("loginBox").style.display = "none";
+
+        // 'unlocked' classını body'ye ekle
+        document.body.classList.add('unlocked');
       } else {
         alert("Yanlış şifre!");
       }
@@ -196,6 +247,5 @@
   </script>
 </body>
 </html>
-
 
 
