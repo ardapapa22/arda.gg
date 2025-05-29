@@ -4,24 +4,16 @@
   <meta charset="UTF-8" />
   <title>10/C FULL İFŞA</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
       height: 100%;
       font-family: monospace;
       overflow: hidden;
       background: black;
       color: #00ff00;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
     }
 
-    /* Tüm ekran arka plan videosu */
     #bgVideo {
       position: fixed;
       top: 0;
@@ -32,22 +24,21 @@
       z-index: -2;
     }
 
-    /* Login kutusunun arkasındaki video */
+    /* loginBox arkasındaki video */
     #loginBoxVideo {
       position: absolute;
       top: 50%;
       left: 50%;
+      transform: translate(-50%, -50%);
       width: 600px;
       height: 400px;
       object-fit: cover;
-      transform: translate(-50%, -50%);
       z-index: -1;
-      opacity: 0.3;
-      pointer-events: none;
+      opacity: 0.4;
       border-radius: 20px;
+      pointer-events: none;
     }
 
-    /* Şifre giriş kutusu */
     #loginBox {
       position: absolute;
       top: 50%;
@@ -57,7 +48,6 @@
       padding: 40px;
       border-radius: 20px;
       text-align: center;
-      color: #00ff00;
       box-shadow: 0 0 20px #00ff00;
       z-index: 10;
     }
@@ -82,14 +72,12 @@
 
     #content {
       display: none;
-      background-color: black;
-      color: #00ff00;
-      text-align: center;
-      padding-top: 50px;
-      font-family: monospace;
-      z-index: 5;
-      position: relative;
       min-height: 100vh;
+      padding-top: 50px;
+      text-align: center;
+      background: black;
+      color: #00ff00;
+      font-family: monospace;
     }
 
     .locked-image {
@@ -101,118 +89,83 @@
 
     .locked-image img {
       width: 100%;
-      border: 5px solid #00ff00;
       border-radius: 20px;
-      box-shadow: 0 0 20px #00ff00;
+      border: 5px solid #00ff00;
       filter: blur(8px);
       opacity: 0.1;
-      transition: filter 0.5s ease, opacity 0.5s ease;
+      transition: 0.5s ease;
       display: block;
-      margin-bottom: 10px;
     }
 
     .lock-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: rgba(0,0,0,0.9);
       border-radius: 20px;
+      font-size: 64px;
+      color: #00ff00;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 64px;
-      color: #00ff00;
-      pointer-events: none;
-      user-select: none;
-      transition: opacity 0.5s ease;
     }
 
     .unlocked .locked-image img {
       filter: none;
       opacity: 1;
     }
-    .unlocked .locked-image .lock-overlay {
+
+    .unlocked .lock-overlay {
       opacity: 0;
       pointer-events: none;
-      user-select: none;
     }
 
     .glow-text {
       font-size: 36px;
       font-weight: bold;
       color: #00ff00;
-      text-align: center;
       animation: glow 1.5s ease-in-out infinite alternate;
-      user-select: none;
       margin-top: 10px;
     }
 
     @keyframes glow {
       0% {
-        text-shadow:
-          0 0 5px #00ff00,
-          0 0 10px #00ff00,
-          0 0 20px #00ff00,
-          0 0 40px #00ff00,
-          0 0 80px #00ff00;
-        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
       }
       100% {
-        text-shadow:
-          0 0 2px #00ff00,
-          0 0 5px #00ff00,
-          0 0 10px #00ff00,
-          0 0 20px #00ff00,
-          0 0 40px #00ff00;
-        color: #aaffaa;
+        text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00;
       }
     }
 
     .corner-text {
       position: fixed;
-      color: #00ff00;
-      font-family: monospace;
-      font-weight: bold;
       font-size: 14px;
+      font-weight: bold;
+      font-family: monospace;
+      color: #00ff00;
       z-index: 20;
-      user-select: none;
     }
 
-    .top-left {
-      top: 10px;
-      left: 10px;
-    }
-
-    .top-right {
-      top: 10px;
-      right: 10px;
-    }
-
-    .bottom-left {
-      bottom: 10px;
-      left: 10px;
-    }
-
-    .bottom-right {
-      bottom: 10px;
-      right: 10px;
-    }
+    .top-left { top: 10px; left: 10px; }
+    .top-right { top: 10px; right: 10px; }
+    .bottom-left { bottom: 10px; left: 10px; }
+    .bottom-right { bottom: 10px; right: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- Tüm ekran arka plan video -->
+  <!-- Tüm ekran arka plan videosu -->
   <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Login kutusunun arkasında video -->
+  <!-- Login kutusu arkası video -->
   <video autoplay muted loop id="loginBoxVideo">
     <source src="video2.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Şifre Giriş Kutusu -->
+  <!-- Şifre kutusu -->
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
@@ -224,7 +177,6 @@
   <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
-
     <div class="locked-image">
       <img src="resim.png.png" alt="MAYMUN İFŞA" />
       <div class="lock-overlay">🔒</div>
@@ -232,7 +184,7 @@
     </div>
   </div>
 
-  <!-- Köşelerde yazılar -->
+  <!-- Köşe yazıları -->
   <div class="corner-text top-left">H4CKED BY ARDA</div>
   <div class="corner-text top-right">H4CKED BY ARDA</div>
   <div class="corner-text bottom-left">H4CKED BY ARDA</div>
@@ -258,11 +210,7 @@
     });
 
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'PrintScreen') {
-        alert('Print Screen engellendi!');
-        e.preventDefault();
-      }
-      if ((e.ctrlKey && ['s', 'c', 'p'].includes(e.key.toLowerCase())) || e.key === 'F12') {
+      if (e.key === 'PrintScreen' || e.key === 'F12' || (e.ctrlKey && ['s', 'c', 'p'].includes(e.key.toLowerCase()))) {
         alert('Bu kısayol engellendi!');
         e.preventDefault();
       }
