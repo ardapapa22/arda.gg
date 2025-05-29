@@ -1,38 +1,178 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>HACK3D BY ARDA</title>
-    <style>
-        body {
-            background-color: black;
-            color: #00ff00;
-            font-family: monospace;
-            text-align: center;
-            margin-top: 50px;
-        }
+  <meta charset="UTF-8" />
+  <title>10/C FULL İFŞA</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: monospace;
+      overflow: hidden;
+      background: black;
+      color: #00ff00;
+    }
 
-        img {
-            border: 5px solid #00ff00;
-            border-radius: 20px;
-            width: 300px;
-            box-shadow: 0 0 20px #00ff00;
-        }
+    /* Video arka plan */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
 
-        h1 {
-            font-size: 48px;
-            animation: blink 1s infinite;
-        }
+    /* Şifre giriş kutusu */
+    #loginBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      color: #00ff00;
+      box-shadow: 0 0 20px #00ff00;
+      z-index: 10;
+    }
 
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-    </style>
+    .lock {
+      font-size: 80px;
+      animation: bounce 1s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* İçerik */
+    #content {
+      display: none;
+      background-color: black;
+      color: #00ff00;
+      text-align: center;
+      padding-top: 50px;
+      font-family: monospace;
+      z-index: 5;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    img {
+      border: 5px solid #00ff00;
+      border-radius: 20px;
+      width: 300px;
+      box-shadow: 0 0 20px #00ff00;
+      margin: 20px;
+    }
+
+    h1 {
+      font-size: 48px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* Köşelerde yazı */
+    .corner-text {
+      position: fixed;
+      color: #00ff00;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 14px;
+      z-index: 20;
+      user-select: none;
+    }
+
+    .top-left {
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-right {
+      top: 10px;
+      right: 10px;
+    }
+
+    .bottom-left {
+      bottom: 10px;
+      left: 10px;
+    }
+
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Video arka plan -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="vide.mp4" type="video/mp4" />
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
+
+  <!-- Şifre Giriş Ekranı -->
+  <div id="loginBox">
+    <div class="lock">🔒</div>
+    <h1>Şifre Gir</h1>
+    <input type="password" id="passwordInput" placeholder="Şifre" />
+    <br />
+    <button onclick="checkPassword()">Giriş</button>
+  </div>
+
+  <!-- İçerik -->
+  <div id="content">
     <h1>HACK3D BY ARDA</h1>
-    <img src="resim.png.png" alt="MAYMUN İFŞA">
+    <img src="resim.png.png" alt="MAYMUN İFŞA" />
+    <br /><br />
+    <img src="resim2.png" alt="İKİNCİ FOTO" />
+    <br /><br />
+    <img src="resim3.png" alt="ÜÇÜNCÜ FOTO" />
+    <br /><br />
+    <img src="resim4.png" alt="DÖRDÜNCÜ FOTO" />
+  </div>
+
+  <!-- Köşelerde H4CKED BY ARDA -->
+  <div class="corner-text top-left">H4CKED BY ARDA</div>
+  <div class="corner-text top-right">H4CKED BY ARDA</div>
+  <div class="corner-text bottom-left">H4CKED BY ARDA</div>
+  <div class="corner-text bottom-right">H4CKED BY ARDA</div>
+
+  <!-- JS: Şifre kontrolü -->
+  <script>
+    function checkPassword() {
+      const correct = atob("MTAvQw=="); // "10/C"
+      const input = document.getElementById("passwordInput").value;
+      if (input === correct) {
+        document.getElementById("content").style.display = "block";
+        document.getElementById("loginBox").style.display = "none";
+      } else {
+        alert("Yanlış şifre!");
+      }
+    }
+  </script>
 </body>
 </html>
+
