@@ -15,10 +15,9 @@
       overflow: hidden;
       background: black;
       color: #00ff00;
-      position: relative;
     }
 
-    /* 🎥 Video arka plan */
+    /* Video arka plan */
     #bgVideo {
       position: fixed;
       top: 0;
@@ -29,7 +28,7 @@
       z-index: -1;
     }
 
-    /* 🔐 Şifre giriş kutusu */
+    /* Şifre giriş kutusu */
     #loginBox {
       position: absolute;
       top: 50%;
@@ -60,32 +59,19 @@
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-      background-color: #003300;
-      color: #00ff00;
-      font-family: monospace;
-    }
-    button:hover {
-      background-color: #006600;
-      cursor: pointer;
     }
 
-    /* 📦 İçerik */
+    /* İçerik */
     #content {
       display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
       background-color: black;
       color: #00ff00;
       text-align: center;
       padding-top: 50px;
       font-family: monospace;
-      z-index: 1;
-      overflow-y: auto;
+      z-index: 5;
+      position: relative;
+      min-height: 100vh;
     }
 
     img {
@@ -107,29 +93,32 @@
       100% { opacity: 1; }
     }
 
-    /* Köşelerde yazılar */
-    .corner-tag {
+    /* Köşelerde yazı */
+    .corner-text {
       position: fixed;
       color: #00ff00;
       font-family: monospace;
       font-weight: bold;
       font-size: 14px;
-      user-select: none;
       z-index: 20;
-      pointer-events: none;
+      user-select: none;
     }
+
     .top-left {
       top: 10px;
       left: 10px;
     }
+
     .top-right {
       top: 10px;
       right: 10px;
     }
+
     .bottom-left {
       bottom: 10px;
       left: 10px;
     }
+
     .bottom-right {
       bottom: 10px;
       right: 10px;
@@ -138,13 +127,13 @@
 </head>
 <body>
 
-  <!-- 🎥 Arka Plan Video -->
+  <!-- Video arka plan -->
   <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- 🔒 Şifre Giriş Ekranı -->
+  <!-- Şifre Giriş Ekranı -->
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
@@ -153,26 +142,30 @@
     <button onclick="checkPassword()">Giriş</button>
   </div>
 
-  <!-- 📦 İçerik -->
+  <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
-    <img src="resim.png.png" alt="MAYMUN İFŞA" /><br /><br />
-    <img src="resim2.png" alt="İKİNCİ FOTO" /><br /><br />
-    <img src="foto3.jpg" alt="Fotoğraf 3" /><br /><br />
-    <img src="foto4.jpg" alt="Fotoğraf 4" /><br /><br />
-    <img src="foto5.jpg" alt="Fotoğraf 5" />
+    <img src="resim.png.png" alt="MAYMUN İFŞA" />
+    <br /><br />
+    <img src="resim2.png" alt="İKİNCİ FOTO" />
+    <br /><br />
+    <img src="foto3.jpg" alt="İFŞAA" />
+    <br /><br />
+    <img src="foto4.jpg" alt="İFŞAA" />
+    <br /><br />
+    <img src="foto5.jpg" alt="İFŞAA" />
   </div>
 
-  <!-- Köşelerde "h4acked by arda" yazıları -->
-  <div class="corner-tag top-left">h4acked by arda</div>
-  <div class="corner-tag top-right">h4acked by arda</div>
-  <div class="corner-tag bottom-left">h4acked by arda</div>
-  <div class="corner-tag bottom-right">h4acked by arda</div>
+  <!-- Köşelerde H4CKED BY ARDA -->
+  <div class="corner-text top-left">H4CKED BY ARDA</div>
+  <div class="corner-text top-right">H4CKED BY ARDA</div>
+  <div class="corner-text bottom-left">H4CKED BY ARDA</div>
+  <div class="corner-text bottom-right">H4CKED BY ARDA</div>
 
-  <!-- 🔐 JS: Şifre kontrolü (base64 gizli) -->
+  <!-- JS: Şifre kontrolü -->
   <script>
     function checkPassword() {
-      const correct = atob("MTAvQw=="); // "10/C" şifresi
+      const correct = atob("MTAvQw=="); // "10/C"
       const input = document.getElementById("passwordInput").value;
       if (input === correct) {
         document.getElementById("content").style.display = "block";
@@ -184,8 +177,4 @@
   </script>
 </body>
 </html>
-
-<img src="images/foto3.jpg" alt="Fotoğraf 3" />
-<img src="images/foto4.jpg" alt="Fotoğraf 4" />
-<img src="images/foto5.jpg" alt="Fotoğraf 5" />
 
