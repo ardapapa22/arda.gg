@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gizli Sayfa</title>
   <style>
     * {
@@ -13,6 +13,9 @@
       height: 100%;
       font-family: monospace;
       overflow: hidden;
+      background: black;
+      color: #00ff00;
+      position: relative;
     }
 
     /* 🎥 Video arka plan */
@@ -32,12 +35,13 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.8); /* yarı saydam siyah */
+      background-color: rgba(0, 0, 0, 0.8);
       padding: 40px;
       border-radius: 20px;
       text-align: center;
       color: #00ff00;
       box-shadow: 0 0 20px #00ff00;
+      z-index: 10;
     }
 
     .lock {
@@ -56,15 +60,32 @@
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      background-color: #003300;
+      color: #00ff00;
+      font-family: monospace;
+    }
+    button:hover {
+      background-color: #006600;
+      cursor: pointer;
     }
 
+    /* 📦 İçerik */
     #content {
       display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
       background-color: black;
       color: #00ff00;
       text-align: center;
       padding-top: 50px;
       font-family: monospace;
+      z-index: 1;
+      overflow-y: auto;
     }
 
     img {
@@ -85,13 +106,41 @@
       50% { opacity: 0.3; }
       100% { opacity: 1; }
     }
+
+    /* Köşelerde yazılar */
+    .corner-tag {
+      position: fixed;
+      color: #00ff00;
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 14px;
+      user-select: none;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .top-left {
+      top: 10px;
+      left: 10px;
+    }
+    .top-right {
+      top: 10px;
+      right: 10px;
+    }
+    .bottom-left {
+      bottom: 10px;
+      left: 10px;
+    }
+    .bottom-right {
+      bottom: 10px;
+      right: 10px;
+    }
   </style>
 </head>
 <body>
 
   <!-- 🎥 Arka Plan Video -->
   <video autoplay muted loop id="bgVideo">
-    <source src="video.mp4" type="video/mp4">
+    <source src="video.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
@@ -99,17 +148,26 @@
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
-    <input type="password" id="passwordInput" placeholder="Şifre">
-    <br>
+    <input type="password" id="passwordInput" placeholder="Şifre" />
+    <br />
     <button onclick="checkPassword()">Giriş</button>
   </div>
 
   <!-- 📦 İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
-    <img src="resim.png.png" alt="MAYMUN İFŞA"><br><br>
-    <img src="resim2.png" alt="İKİNCİ FOTO">
+    <img src="resim.png.png" alt="MAYMUN İFŞA" /><br /><br />
+    <img src="resim2.png" alt="İKİNCİ FOTO" /><br /><br />
+    <img src="foto3.jpg" alt="Fotoğraf 3" /><br /><br />
+    <img src="foto4.jpg" alt="Fotoğraf 4" /><br /><br />
+    <img src="foto5.jpg" alt="Fotoğraf 5" />
   </div>
+
+  <!-- Köşelerde "h4acked by arda" yazıları -->
+  <div class="corner-tag top-left">h4acked by arda</div>
+  <div class="corner-tag top-right">h4acked by arda</div>
+  <div class="corner-tag bottom-left">h4acked by arda</div>
+  <div class="corner-tag bottom-right">h4acked by arda</div>
 
   <!-- 🔐 JS: Şifre kontrolü (base64 gizli) -->
   <script>
@@ -124,40 +182,5 @@
       }
     }
   </script>
-
 </body>
 </html>
-
-<style>
-  /* ... diğer CSS'ler ... */
-
-  #content {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
-    color: #00ff00;
-    text-align: center;
-    padding-top: 50px;
-    font-family: monospace;
-    z-index: 1;
-    overflow-y: auto;
-  }
-
-  /* ... diğer CSS'ler ... */
-</style>
-
-<div id="content">
-  <h1>HACK3D BY ARDA</h1>
-  <img src="resim.png.png" alt="MAYMUN İFŞA"><br><br>
-  <img src="resim2.png" alt="İKİNCİ FOTO"><br><br>
-
-  <!-- Yeni JPG fotoğraflar -->
-  <img src="foto3.jpg" alt="Fotoğraf 3"><br><br>
-  <img src="foto4.jpg" alt="Fotoğraf 4"><br><br>
-  <img src="foto5.jpg" alt="Fotoğraf 5">
-</div>
-
-
