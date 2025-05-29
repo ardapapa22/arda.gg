@@ -140,13 +140,13 @@
     .bottom-left { bottom: 10px; left: 10px; }
     .bottom-right { bottom: 10px; right: 10px; }
 
-    /* Blur kaldırıldığında geçiş efektleri */
-    .unlocked #lockedImage img {
+    /* Şifre doğruysa efektler kalkar */
+    #lockedImage.unlocked img {
       filter: none;
       opacity: 1;
     }
 
-    .unlocked #lockOverlay {
+    #lockedImage.unlocked .lock-overlay {
       opacity: 0;
       pointer-events: none;
     }
@@ -154,16 +154,19 @@
 </head>
 <body>
 
+  <!-- Arka plan videosu -->
   <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
+  <!-- Login kutusunun arkasındaki video -->
   <video autoplay muted loop id="loginBoxVideo">
     <source src="video2.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
+  <!-- Şifre kutusu -->
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
@@ -172,32 +175,33 @@
     <button onclick="checkPassword()">Giriş</button>
   </div>
 
+  <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
     <div class="locked-image" id="lockedImage">
       <img src="resim.png.png" alt="MAYMUN İFŞA" />
-      <div class="lock-overlay" id="lockOverlay">🔒</div>
+      <div class="lock-overlay">🔒</div>
       <div class="glow-text">maymun ifşası</div>
     </div>
   </div>
 
+  <!-- Köşe yazıları -->
   <div class="corner-text top-left">H4CKED BY ARDA</div>
   <div class="corner-text top-right">H4CKED BY ARDA</div>
   <div class="corner-text bottom-left">H4CKED BY ARDA</div>
   <div class="corner-text bottom-right">H4CKED BY ARDA</div>
 
-  <!-- Tıklama sesi -->
+  <!-- Ses -->
   <audio id="unlockSound" src="click.mp3" preload="auto"></audio>
 
   <script>
     function checkPassword() {
-      const correct = atob("MTAvQw=="); // 10/C
+      const correct = atob("MTAvQw=="); // Base64: 10/C
       const input = document.getElementById("passwordInput").value.trim();
       if (input.toLowerCase() === correct.toLowerCase()) {
         document.getElementById("content").style.display = "block";
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("loginBoxVideo").style.display = "none";
-        document.body.classList.add("unlocked");
         document.getElementById("lockedImage").classList.add("unlocked");
         document.getElementById("unlockSound").play();
       } else {
@@ -219,4 +223,3 @@
   </script>
 </body>
 </html>
-
