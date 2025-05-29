@@ -1,19 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
   <title>Gizli Sayfa</title>
   <style>
-    body {
-      background-color: black;
-      color: #00ff00;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
       font-family: monospace;
-      text-align: center;
-      margin-top: 50px;
+      overflow: hidden;
     }
 
-    /* 🔐 Lock icon animasyonu */
+    /* 🎥 Video arka plan */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* 🔐 Şifre giriş kutusu */
+    #loginBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8); /* yarı saydam siyah */
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      color: #00ff00;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
     .lock {
       font-size: 80px;
       animation: bounce 1s infinite;
@@ -21,19 +47,24 @@
     }
 
     @keyframes bounce {
-      0%   { transform: translateY(0); }
-      50%  { transform: translateY(-10px); }
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
 
     input, button {
       padding: 10px;
-      margin-top: 20px;
       font-size: 16px;
+      margin-top: 10px;
     }
 
     #content {
       display: none;
+      background-color: black;
+      color: #00ff00;
+      text-align: center;
+      padding-top: 50px;
+      font-family: monospace;
     }
 
     img {
@@ -41,6 +72,7 @@
       border-radius: 20px;
       width: 300px;
       box-shadow: 0 0 20px #00ff00;
+      margin: 20px;
     }
 
     h1 {
@@ -57,29 +89,36 @@
 </head>
 <body>
 
-  <div class="lock">🔒</div> <!-- 👈 Kilit burada -->
+  <!-- 🎥 Arka Plan Video -->
+  <video autoplay muted loop id="bgVideo">
+    <source src="video.mp4" type="video/mp4">
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
 
-  <h1>Şifre Gir</h1>
-  <input type="password" id="passwordInput" placeholder="Şifre">
-  <br>
-  <button onclick="checkPassword()">Giriş</button>
+  <!-- 🔒 Şifre Giriş Ekranı -->
+  <div id="loginBox">
+    <div class="lock">🔒</div>
+    <h1>Şifre Gir</h1>
+    <input type="password" id="passwordInput" placeholder="Şifre">
+    <br>
+    <button onclick="checkPassword()">Giriş</button>
+  </div>
 
+  <!-- 📦 İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
     <img src="resim.png.png" alt="MAYMUN İFŞA"><br><br>
     <img src="resim2.png" alt="İKİNCİ FOTO">
   </div>
 
+  <!-- 🔐 JS: Şifre kontrolü (base64 gizli) -->
   <script>
     function checkPassword() {
-      const correctPassword = "10/C"; // 🔐 Şifre burada
+      const correct = atob("MTAvQw=="); // "10/C" şifresi
       const input = document.getElementById("passwordInput").value;
-      if (input === correctPassword) {
+      if (input === correct) {
         document.getElementById("content").style.display = "block";
-        document.getElementById("passwordInput").style.display = "none";
-        document.querySelector("button").style.display = "none";
-        document.querySelector(".lock").style.display = "none";
-        document.querySelector("h1").style.display = "none";
+        document.getElementById("loginBox").style.display = "none";
       } else {
         alert("Yanlış şifre!");
       }
