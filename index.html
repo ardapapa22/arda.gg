@@ -118,29 +118,10 @@
     }
 
     @keyframes glow {
-      0% {
-        text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
-      }
-      100% {
-        text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00;
-      }
+      0% { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00; }
+      100% { text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00; }
     }
 
-    .corner-text {
-      position: fixed;
-      font-size: 14px;
-      font-weight: bold;
-      font-family: monospace;
-      color: #00ff00;
-      z-index: 20;
-    }
-
-    .top-left { top: 10px; left: 10px; }
-    .top-right { top: 10px; right: 10px; }
-    .bottom-left { bottom: 10px; left: 10px; }
-    .bottom-right { bottom: 10px; right: 10px; }
-
-    /* Şifre doğruysa efektler kalkar */
     #lockedImage.unlocked img {
       filter: none;
       opacity: 1;
@@ -150,23 +131,43 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    /* Login paneli */
+    #loginInfo {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      padding: 10px 20px;
+      z-index: 999;
+      color: #00ff00;
+      font-family: monospace;
+    }
+
+    #loginInfo button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Arka plan videosu -->
   <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4" />
-    Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Login kutusunun arkasındaki video -->
   <video autoplay muted loop id="loginBoxVideo">
     <source src="video2.mp4" type="video/mp4" />
-    Tarayıcınız video etiketini desteklemiyor.
   </video>
 
-  <!-- Şifre kutusu -->
   <div id="loginBox">
     <div class="lock">🔒</div>
     <h1>Şifre Gir</h1>
@@ -175,7 +176,6 @@
     <button onclick="checkPassword()">Giriş</button>
   </div>
 
-  <!-- İçerik -->
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
     <div class="locked-image" id="lockedImage">
@@ -185,41 +185,36 @@
     </div>
   </div>
 
-  <!-- Köşe yazıları -->
-  <div class="corner-text top-left">H4CKED BY ARDA</div>
-  <div class="corner-text top-right">H4CKED BY ARDA</div>
-  <div class="corner-text bottom-left">H4CKED BY ARDA</div>
-  <div class="corner-text bottom-right">H4CKED BY ARDA</div>
-
-  <!-- Ses -->
-  <audio id="unlockSound" src="click.mp3" preload="auto"></audio>
+  <!-- Sol üst köşe login paneli -->
+  <div id="loginInfo">
+    Giriş Yapıldı: <strong>10/C</strong>
+    <button onclick="logout()">Çıkış</button>
+  </div>
 
   <script>
+    const correct = atob("MTAvQw=="); // 10/C
+    let attempts = 0;
+
     function checkPassword() {
-      const correct = atob("MTAvQw=="); // Base64: 10/C
       const input = document.getElementById("passwordInput").value.trim();
       if (input.toLowerCase() === correct.toLowerCase()) {
         document.getElementById("content").style.display = "block";
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("loginBoxVideo").style.display = "none";
         document.getElementById("lockedImage").classList.add("unlocked");
-        document.getElementById("unlockSound").play();
+        document.getElementById("loginInfo").style.display = "block";
       } else {
+        attempts++;
         alert("Yanlış şifre!");
+        if (attempts >= 3) {
+          document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:20%;'>Erişim Engellendi!</h1>";
+        }
       }
     }
 
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      alert('YARRAMA BAKARSIN :D');
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'PrintScreen' || e.key === 'F12' || (e.ctrlKey && ['s', 'c', 'p'].includes(e.key.toLowerCase()))) {
-        alert('Bu kısayol engellendi!');
-        e.preventDefault();
-      }
-    });
+    function logout() {
+      location.reload(); // sayfayı sıfırla
+    }
   </script>
 </body>
 </html>
