@@ -15,6 +15,10 @@
       overflow: hidden;
       background: black;
       color: #00ff00;
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* IE10+/Edge */
+      user-select: none;         /* Standard */
     }
 
     /* Video arka plan */
@@ -147,7 +151,7 @@
     <h1>HACK3D BY ARDA</h1>
     <img src="resim.png.png" alt="MAYMUN İFŞA" />
     <br /><br />
-  </div> <!-- burası kapanış div -->
+  </div>
 
   <!-- Köşelerde H4CKED BY ARDA -->
   <div class="corner-text top-left">H4CKED BY ARDA</div>
@@ -155,7 +159,7 @@
   <div class="corner-text bottom-left">H4CKED BY ARDA</div>
   <div class="corner-text bottom-right">H4CKED BY ARDA</div>
 
-  <!-- JS: Şifre kontrolü -->
+  <!-- JS: Şifre kontrolü ve engellemeler -->
   <script>
     function checkPassword() {
       const correct = atob("MTAvQw=="); // "10/C"
@@ -167,6 +171,28 @@
         alert("Yanlış şifre!");
       }
     }
+
+    // Sağ tıklamayı engelle
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      alert('Sağ tıklama engellendi!');
+    });
+
+    // Kısayolları engelle (Print Screen, Ctrl+S, Ctrl+C, F12 vb)
+    document.addEventListener('keydown', function(e) {
+      // Print Screen engelle (sınırlı)
+      if (e.key === 'PrintScreen') {
+        alert('Print Screen engellendi!');
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+S, Ctrl+C, Ctrl+P, F12 engelle
+      if ((e.ctrlKey && ['s', 'c', 'p'].includes(e.key.toLowerCase())) || e.key === 'F12') {
+        alert('Bu kısayol engellendi!');
+        e.preventDefault();
+        return false;
+      }
+    });
   </script>
 </body>
 </html>
