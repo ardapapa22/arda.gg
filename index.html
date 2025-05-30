@@ -122,17 +122,16 @@
       100% { text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00; }
     }
 
-    #lockedImage.unlocked img {
-      filter: none;
-      opacity: 1;
+    .unlocked img {
+      filter: none !important;
+      opacity: 1 !important;
     }
 
-    #lockedImage.unlocked .lock-overlay {
+    .unlocked .lock-overlay {
       opacity: 0;
       pointer-events: none;
     }
 
-    /* Login paneli */
     #loginInfo {
       display: none;
       position: fixed;
@@ -156,6 +155,34 @@
       border: 1px solid #00ff00;
       color: #00ff00;
     }
+
+    /* Chat kutusu */
+    #chatBox {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    #chatInput {
+      width: 70%;
+      padding: 10px;
+      background: black;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+    }
+
+    #chatButton {
+      padding: 10px 20px;
+      background: transparent;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -178,10 +205,19 @@
 
   <div id="content">
     <h1>HACK3D BY ARDA</h1>
+
+    <!-- 1. Görsel -->
     <div class="locked-image" id="lockedImage">
       <img src="resim.png.png" alt="MAYMUN İFŞA" />
       <div class="lock-overlay">🔒</div>
       <div class="glow-text">maymun ifşası</div>
+    </div>
+
+    <!-- 2. Yeni Görsel -->
+    <div class="locked-image" id="lockedImage2">
+      <img src="benim-resmim.jpg" alt="EK İFŞA" />
+      <div class="lock-overlay">🔒</div>
+      <div class="glow-text">ekstra ifşa</div>
     </div>
   </div>
 
@@ -189,6 +225,12 @@
   <div id="loginInfo">
     Giriş Yapıldı: <strong>10/C</strong>
     <button onclick="logout()">Çıkış</button>
+  </div>
+
+  <!-- Chat bölümü -->
+  <div id="chatBox">
+    <input type="text" id="chatInput" placeholder="Mesaj yaz..." />
+    <button id="chatButton" onclick="sendChat()">Gönder</button>
   </div>
 
   <script>
@@ -202,6 +244,7 @@
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("loginBoxVideo").style.display = "none";
         document.getElementById("lockedImage").classList.add("unlocked");
+        document.getElementById("lockedImage2").classList.add("unlocked");
         document.getElementById("loginInfo").style.display = "block";
       } else {
         attempts++;
@@ -213,7 +256,15 @@
     }
 
     function logout() {
-      location.reload(); // sayfayı sıfırla
+      location.reload();
+    }
+
+    function sendChat() {
+      const message = document.getElementById("chatInput").value.trim();
+      if (message !== "") {
+        alert("Mesaj gönderildi: " + message); // Gerçek chat sistemi değil, demo
+        document.getElementById("chatInput").value = "";
+      }
     }
   </script>
 </body>
